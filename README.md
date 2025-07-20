@@ -1,17 +1,17 @@
-For Abby Project 
+For the Abby Project, help to understand clean architecture and Domain Driven Design 
 
-N-Tier Architecture 
-Repository Pattern and Unit of Work 
-TempData ViewBag ViewData in .net Core 
-API Controller With Razor pages
-SweerAlert, Rich Text Editor and Data table with .Net Core 
-Scaffold identity (Razor Class Library)
-Roles and Authorization in .Net core 
-Stripe Payment/Refund with .Net core 
-Session in .Net Core 
-Emails with SMTP and Send Grid 
-Social login using Facebook 
-View Components in .Net Core 
-Seed Database with DbInitializer
-Deploy to Azure 
+#N-Tier Architecture 
+#Repository Pattern and Unit of Work
+#TempData ViewBag ViewData in .NET Core 
+#API Controller With Razor Pages
+#SweerAlert, Rich Text Editor, and Data table with .NET Core 
+#Scaffold identity (Razor Class Library)
+#Roles and Authorization in .NET Core 
+#Stripe Payment/Refund with .NET Core 
+#Session in .NET Core 
+#Emails with SMTP and SendGrid 
+#Social login using Facebook 
+#View Components in .NET Core 
+#Seed Database with DbInitializer
+#Deploy to Azure 
 
