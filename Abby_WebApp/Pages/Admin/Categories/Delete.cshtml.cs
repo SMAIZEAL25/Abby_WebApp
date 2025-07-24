@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Abby_WebApp.Pages.Admin.Categories
 {
+    [BindProperties]
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _dbContext;
