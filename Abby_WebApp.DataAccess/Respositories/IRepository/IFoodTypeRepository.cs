@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Abby_WebApp.DataAccess.Respositories.IRepository
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface IFoodTypeRepository : IRepository<FoodType>
     {
-        void update(Category category);
-
-        void Save();
+        void Update(FoodType obj);
     }
 }

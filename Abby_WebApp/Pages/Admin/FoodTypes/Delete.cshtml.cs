@@ -1,4 +1,5 @@
 using Abby_WebApp.Data;
+using Abby_WebApp.DataAccess.Respositories.IRepository;
 using Abby_WebApp.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,38 +9,36 @@ namespace Abby_WebApp.Pages.Admin.FoodTypes
     [BindProperties]
     public class DeleteModel : PageModel
     {
-    
-            private readonly ApplicationDbContext _db;
-            // Property to hold the list of categories
-            public FoodType FoodType { get; set; }
+        private readonly IUnitOfWork _unitOfWork;
 
-            // Constructor to inject the ApplicationDbContext
-            public DeleteModel(ApplicationDbContext db)
-            {
-                _db = db;
-            }
-            public void OnGet(int Id)
-            {
-                FoodType = _db.FoodType.Find(Id);
-            }
+        public FoodType FoodType { get; set; }
 
-            public async Task<IActionResult> OnPostAsync()
-            {
-                if (ModelState.IsValid)
-                {
-                    var foodTypeFromDb = _db.FoodType.Find(FoodType.Id);
-                    if (foodTypeFromDb != null)
-                    {
-                        //foodTypeFromDb.Name = foodType.Name;
-                        ////foodTypeFromDb.Name = foodType.Description;
-                        _db.FoodType.Remove(foodTypeFromDb);
-                        await _db.SaveChangesAsync();
-                        TempData["success"] = "Food Type Deleted successfully";
-                        return RedirectToPage("Index");
-                    }
-                }
-                return Page();
-            }
+        public DeleteModel(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
         }
+        public void OnGet(int id)
+        {
+            FoodType = _unitOfWork.FoodType.GetFirstorOrDefault(u => u.Id == id);
+            //Category = _db.Category.FirstOrDefault(u=>u.Id==id);
+            //Category = _db.Category.SingleOrDefault(u=>u.Id==id);
+            //Category = _db.Category.Where(u => u.Id == id).FirstOrDefault();
+        }
+
+        public async Task<IActionResult> OnPost()
+        {
+            var foodTypeFromDb = _unitOfWork.FoodType.GetFirstorOrDefault(u => u.Id == FoodType.Id);
+            if (foodTypeFromDb != null)
+            {
+                _unitOfWork.FoodType.Remove(foodTypeFromDb);
+                _unitOfWork.Save();
+                TempData["success"] = "FoodType deleted successfully";
+                return RedirectToPage("Index");
+
+            }
+
+            return Page();
+        }
+    }
 }
 

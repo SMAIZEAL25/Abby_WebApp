@@ -1,4 +1,6 @@
 using Abby_WebApp.Data;
+using Abby_WebApp.DataAccess.Respositories;
+using Abby_WebApp.DataAccess.Respositories.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Abby_WebApp
@@ -14,6 +16,12 @@ namespace Abby_WebApp
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")
                 ));
+
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddRazorPages(); 
+
+
 
             var app = builder.Build();
 
@@ -37,4 +45,6 @@ namespace Abby_WebApp
             app.Run();
         }
     }
+
+
 }

@@ -1,4 +1,5 @@
 using Abby_WebApp.Data;
+using Abby_WebApp.DataAccess.Respositories.IRepository;
 using Abby_WebApp.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -6,20 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Abby_WebApp.Pages.Admin.Categories
 {
     public class IndexModel : PageModel
-    // This class represents the model for the Index page of the Category
     {
-        private readonly ApplicationDbContext _db;
-        // Property to hold the list of categories
+        private readonly IUnitOfWork _unitOfWork;
+
         public IEnumerable<Category> Categories { get; set; }
 
-        // Constructor to inject the ApplicationDbContext
-        public IndexModel(ApplicationDbContext db)
+        public IndexModel(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
+
         public void OnGet()
         {
-            Categories = _db.Categories.ToList();
+            Categories = _unitOfWork.Category.GetAll();
         }
     }
 }

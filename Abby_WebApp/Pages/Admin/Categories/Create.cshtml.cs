@@ -1,4 +1,5 @@
 using Abby_WebApp.Data;
+using Abby_WebApp.DataAccess.Respositories.IRepository;
 using Abby_WebApp.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,36 +9,32 @@ namespace Abby_WebApp.Pages.Admin.Categories
     [BindProperties]
     public class CreateModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IUnitOfWork _unitOfWork;
 
-      
         public Category Category { get; set; }
 
-        public CreateModel(ApplicationDbContext db)
+        public CreateModel(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
-
         public void OnGet()
         {
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPost()
         {
             if (Category.Name == Category.DisplayOrder.ToString())
             {
-                ModelState.AddModelError("Category.Name", "Display Order cannot exactly match the Name.");
+                ModelState.AddModelError("Category.Name", "The DisplayOrder cannot exactly match the Name.");
             }
-
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return Page();
+                _unitOfWork.Category.Add(Category);
+                _unitOfWork.Save();
+                TempData["success"] = "Category created successfully";
+                return RedirectToPage("Index");
             }
-
-            _db.Categories.Add(Category);
-            await _db.SaveChangesAsync();
-            TempData["success"] = "Category created successfully!";
-            return RedirectToPage("Index");
+            return Page();
         }
     }
 
