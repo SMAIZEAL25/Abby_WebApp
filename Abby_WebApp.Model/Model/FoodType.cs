@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Abby_WebApp.Model
 {
@@ -8,6 +9,6 @@ namespace Abby_WebApp.Model
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        
+
     }
 }

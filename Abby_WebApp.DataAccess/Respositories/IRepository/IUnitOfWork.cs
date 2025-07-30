@@ -12,6 +12,8 @@ namespace Abby_WebApp.DataAccess.Respositories.IRepository
 
         IFoodTypeRepository FoodType { get; }
 
+        IMenuItemRepository MenuItem { get; }
+
         void Save();
     }
 }

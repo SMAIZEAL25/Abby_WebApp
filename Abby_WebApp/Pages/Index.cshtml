@@ -5,6 +5,124 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome </h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4" id="welcomeTitle">Welcome to Our Site</h1>
+    <p class="lead">Discover amazing content and features</p>
+
+    <div class="my-4 text-center">
+        <h3>Ready to Begin Your Journey?</h3>
+        <a asp-page="/GettingStarted" class="btn btn-primary btn-lg mt-3">Get Started Now</a>
+        <p class="small mt-2">or <a asp-page="/LearnMore">learn more about us</a></p>
+    </div>
+
+    <!-- Interactive Greeting Form -->
+    <div class="card mx-auto" style="max-width: 500px;">
+        <div class="card-body">
+            <h5 class="card-title">Personal Greeting</h5>
+            <form id="greetingForm">
+                <div class="form-group">
+                    <label for="nameInput">Enter your name:</label>
+                    <input type="text" class="form-control" id="nameInput"
+                           asp-for="UserName" placeholder="Your name">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-success mt-2">Greet Me</button>
+            </form>
+            <div id="greetingResult" class="mt-3" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Interactive Features Grid -->
+    <div class="row mt-5">
+        <div class="col-md-4 feature-box" data-feature="web">
+            <div class="p-3 border rounded">
+                <h3>Web Development</h3>
+                <p>Learn about building modern web applications</p>
+                <button class="btn btn-outline-info feature-btn">Learn More</button>
+            </div>
+        </div>
+        <div class="col-md-4 feature-box" data-feature="mobile">
+            <div class="p-3 border rounded">
+                <h3>Mobile Apps</h3>
+                <p>Discover cross-platform mobile solutions</p>
+                <button class="btn btn-outline-info feature-btn">Learn More</button>
+            </div>
+        </div>
+        <div class="col-md-4 feature-box" data-feature="cloud">
+            <div class="p-3 border rounded">
+                <h3>Cloud Services</h3>
+                <p>Explore scalable cloud infrastructure</p>
+                <button class="btn btn-outline-info feature-btn">Learn More</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        // // Counter functionality
+        // let count = 0;
+        // const counterElement = document.getElementById('counter');
+        // const incrementBtn = document.getElementById('incrementBtn');
+
+        // incrementBtn.addEventListener('click', () => {
+        //     count++;
+        //     counterElement.textContent = count;
+
+        //     // Add visual feedback
+        //     counterElement.style.transform = 'scale(1.2)';
+        //     setTimeout(() => {
+        //         counterElement.style.transform = 'scale(1)';
+        //     }, 300);
+        // });
+
+        // Greeting form handling
+        const greetingForm = document.getElementById('greetingForm');
+        const greetingResult = document.getElementById('greetingResult');
+
+        greetingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('nameInput').value;
+
+            if (name) {
+                greetingResult.innerHTML = `<h4>Hello, ${name}!</h4><p>Welcome to our website. We're glad you're here!</p>`;
+                greetingResult.style.display = 'block';
+
+                // Change welcome title
+                document.getElementById('welcomeTitle').textContent = `Welcome, ${name}!`;
+            }
+        });
+
+        // Feature box interaction
+        document.querySelectorAll('.feature-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const featureBox = this.closest('.feature-box');
+                const feature = featureBox.getAttribute('data-feature');
+
+                alert(`You selected the ${feature} feature! This could navigate to a detailed page.`);
+
+                // Visual feedback
+                featureBox.style.backgroundColor = '#f8f9fa';
+                setTimeout(() => {
+                    featureBox.style.backgroundColor = '';
+                }, 1000);
+            });
+        });
+
+        // Typewriter effect for welcome message
+        const welcomeText = "Welcome to Our ASP.NET Core Site";
+        let i = 0;
+        const titleElement = document.getElementById('welcomeTitle');
+        titleElement.textContent = '';
+
+        function typeWriter() {
+            if (i < welcomeText.length) {
+                titleElement.textContent += welcomeText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        // Start the typewriter effect
+        typeWriter();
+    </script>
+}

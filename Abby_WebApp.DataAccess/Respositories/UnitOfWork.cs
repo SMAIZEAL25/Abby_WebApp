@@ -25,6 +25,8 @@ namespace Abby_WebApp.DataAccess.Respositories
         public ICategoryRepository Category { get; private set; }
         public IFoodTypeRepository FoodType { get; private set; }
 
+        public IMenuItemRepository MenuItem {  get; private set; }
+
 
 
         public void Dispose()
