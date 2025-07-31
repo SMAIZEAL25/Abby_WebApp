@@ -28,7 +28,7 @@ namespace Abby_WebApp.DataAccess.Respositories
             objFromDb.Price = obj.Price;
             objFromDb.CategoryId = obj.CategoryId;
             objFromDb.FoodTypeId = obj.FoodTypeId;
-            if (objFromDb.Image != null)
+            if (obj.Image != null)
             {
                 objFromDb.Image = obj.Image;
             }

@@ -2,7 +2,7 @@
 $(document).ready(function () {
     dataTable= $('#DT_load').DataTable({
         "ajax": {
-            "url": "/api/MenuItem",
+            "url": "/Api/MenuItem",
             "type": "GET",
             "datatype":"json"
         },

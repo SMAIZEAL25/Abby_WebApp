@@ -12,7 +12,7 @@ namespace Abby_WebApp.DataAccess.Respositories.IRepository
         void Add(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string? includeProperties = null);
         T GetFirstorOrDefault(Expression<Func<T, bool>>? filter = null);
     }
 }

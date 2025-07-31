@@ -16,22 +16,24 @@ namespace Abby_WebApp.Pages.Admin.MenuItems
         public IEnumerable<SelectListItem> CategoryList { get; set; }
         public IEnumerable<SelectListItem> FoodTypeList { get; set; }
 
-        public UpsertModel (IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
+        public UpsertModel(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _hostEnvironment = hostEnvironment;
             MenuItem = new();
         }
-
-
-        public void OnGet()
+        public void OnGet(int? id)
         {
+            if (id != null)
+            {
+                //Edit
+                MenuItem = _unitOfWork.MenuItem.GetFirstorOrDefault(u => u.Id == id);
+            }
             CategoryList = _unitOfWork.Category.GetAll().Select(i => new SelectListItem()
             {
                 Text = i.Name,
                 Value = i.Id.ToString()
             });
-
             FoodTypeList = _unitOfWork.FoodType.GetAll().Select(i => new SelectListItem()
             {
                 Text = i.Name,
@@ -44,6 +46,8 @@ namespace Abby_WebApp.Pages.Admin.MenuItems
 
             string webRootPath = _hostEnvironment.WebRootPath;
             var files = HttpContext.Request.Form.Files;
+          
+
             if (MenuItem.Id == 0)
             {
                 //create
