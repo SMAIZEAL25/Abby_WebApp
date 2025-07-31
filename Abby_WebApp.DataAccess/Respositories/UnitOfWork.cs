@@ -18,13 +18,13 @@ namespace Abby_WebApp.DataAccess.Respositories
             _applicationDb = applicationDb;
             Category = new CategoryRepository(_applicationDb);
             FoodType = new FoodTypeRepository(_applicationDb);
-            MenuItem = new MenuItemRepository(_applicationDb);
 
 
         }
 
         public ICategoryRepository Category { get; private set; }
         public IFoodTypeRepository FoodType { get; private set; }
+
         public IMenuItemRepository MenuItem {  get; private set; }
 
 

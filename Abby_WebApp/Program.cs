@@ -40,8 +40,6 @@ namespace Abby_WebApp
 
             app.UseAuthorization();
 
-            app.MapControllers();
-            -
             app.MapRazorPages();
 
             app.Run();
